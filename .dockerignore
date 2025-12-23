@@ -1,0 +1,67 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# IDE and editor files
+.idea
+.vscode
+.cursor
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation
+*.md
+!README.md
+docs/
+postman/
+
+# Test files
+*_test.go
+testdata/
+coverage.txt
+coverage.out
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+.air.toml
+build-errors.log
+
+# Build artifacts
+api
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Dependencies (will be downloaded during build)
+vendor/
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Docker files (not needed in image)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Scripts not needed in runtime
+scripts/
+
+# Agent OS files
+.agent-os/

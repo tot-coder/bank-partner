@@ -1,0 +1,11 @@
+-- Drop additional performance indexes
+DROP INDEX IF EXISTS idx_transactions_completed;
+DROP INDEX IF EXISTS idx_accounts_active;
+DROP INDEX IF EXISTS idx_transfers_status_created;
+DROP INDEX IF EXISTS idx_transfers_to_status_created;
+DROP INDEX IF EXISTS idx_transfers_from_status_created;
+DROP INDEX IF EXISTS idx_transactions_status_created;
+DROP INDEX IF EXISTS idx_transactions_account_status;
+DROP INDEX IF EXISTS idx_transactions_account_created;
+DROP INDEX IF EXISTS idx_accounts_type_status;
+DROP INDEX IF EXISTS idx_accounts_user_status;

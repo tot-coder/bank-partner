@@ -1,0 +1,98 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: array-banking-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-arraybank}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-arraybank_dev_password}
+      POSTGRES_DB: ${DB_NAME:-arraybank_dev}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d/migrations:ro
+    networks:
+      - array-banking-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-arraybank} -d ${DB_NAME:-arraybank_dev}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: array-banking-api-dev
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      APP_PORT: ${APP_PORT:-8080}
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-arraybank}
+      DB_PASSWORD: ${DB_PASSWORD:-arraybank_dev_password}
+      DB_NAME: ${DB_NAME:-arraybank_dev}
+      DB_SSLMODE: ${DB_SSLMODE:-disable}
+      AUTO_MIGRATE: ${AUTO_MIGRATE:-true}
+      SEED_DATABASE: ${SEED_DATABASE:-true}
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      JWT_ISSUER: ${JWT_ISSUER:-banking-api}
+      JWT_ACCESS_TOKEN_DURATION: ${JWT_ACCESS_TOKEN_DURATION:-24h}
+      JWT_REFRESH_TOKEN_DURATION: ${JWT_REFRESH_TOKEN_DURATION:-168h}
+      ENABLE_SWAGGER: ${ENABLE_SWAGGER:-true}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      - ./:/build:cached
+      - go_modules:/go/pkg/mod
+      - go_build_cache:/root/.cache/go-build
+    networks:
+      - array-banking-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    command: >
+      sh -c "
+        echo 'Installing Air for hot reload...' &&
+        go install github.com/air-verse/air@v1.52.3 &&
+        echo 'Starting application with hot reload...' &&
+        air -c .air.toml
+      "
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+    name: array-banking-postgres-data-dev
+    driver: local
+  go_modules:
+    name: array-banking-go-modules
+    driver: local
+  go_build_cache:
+    name: array-banking-go-build-cache
+    driver: local
+
+networks:
+  array-banking-network:
+    name: array-banking-network-dev
+    driver: bridge
