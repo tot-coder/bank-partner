@@ -61,15 +61,9 @@ func (h *AccountHandler) CreateAccount(c echo.Context) error {
 		return SendError(c, errors.ValidationGeneral, errors.WithDetails(err.Error()))
 	}
 
-	initialDeposit := decimal.Zero
-	if req.InitialDeposit != "" {
-		initialDeposit, err = decimal.NewFromString(req.InitialDeposit)
-		if err != nil {
-			return SendError(c, errors.ValidationInvalidFormat, errors.WithDetails("Invalid initial deposit amount"))
-		}
-	}
+	initialDeposit := getAvailableBalanceFromContext(c)
 
-	account, err := h.accountService.CreateAccount(userID, req.AccountType, initialDeposit)
+	account, err := h.accountService.CreateAccount(userID, req.AccountType, req.AccountNumber, req.RoutingNumber, initialDeposit)
 	if err != nil {
 		if err == services.ErrAccountAlreadyExists {
 			return SendError(c, errors.ValidationGeneral, errors.WithDetails(err.Error()))

@@ -1,0 +1,1 @@
+ALTER TABLE accounts ADD COLUMN routing_number VARCHAR(50) NOT NULL;

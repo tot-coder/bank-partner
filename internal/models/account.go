@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	AccountTypeChecking    = "checking"
-	AccountTypeSavings     = "savings"
-	AccountTypeMoneyMarket = "money_market"
+	AccountTypeChecking    = "CHECKING"
+	AccountTypeSavings     = "SAVINGS"
+	AccountTypeMoneyMarket = "MONEY_MARKET"
 
 	AccountStatusActive   = "active"
 	AccountStatusInactive = "inactive"
@@ -37,7 +37,8 @@ var (
 // Account represents a bank account
 type Account struct {
 	ID            uuid.UUID       `gorm:"type:uuid;primary_key" json:"id"`
-	AccountNumber string          `gorm:"type:varchar(10);uniqueIndex;not null" json:"account_number"`
+	AccountNumber string          `gorm:"type:varchar(20);uniqueIndex;not null" json:"account_number"`
+	RoutingNumber string          `gorm:"type:varchar(20);uniqueIndex;not null" json:"routing_number"`
 	UserID        uuid.UUID       `gorm:"type:uuid;not null;index" json:"user_id"`
 	AccountType   string          `gorm:"type:varchar(20);not null" json:"account_type"`
 	Balance       decimal.Decimal `gorm:"type:decimal(15,2);not null;default:0" json:"balance"`
@@ -110,9 +111,9 @@ func (a *Account) Validate() error {
 		return errors.New("account number is required")
 	}
 
-	if len(a.AccountNumber) != 10 {
-		return errors.New("account number must be 10 digits")
-	}
+	// if len(a.AccountNumber) != 10 {
+	// 	return errors.New("account number must be 10 digits")
+	// }
 
 	if !IsValidAccountType(a.AccountType) {
 		return ErrInvalidAccountType
@@ -127,10 +128,10 @@ func (a *Account) Validate() error {
 	}
 
 	// Business rule: Account number prefix must match account type
-	expectedPrefix := GetAccountPrefix(a.AccountType)
-	if a.AccountNumber[:2] != expectedPrefix {
-		return fmt.Errorf("account number prefix does not match account type")
-	}
+	// expectedPrefix := GetAccountPrefix(a.AccountType)
+	// if a.AccountNumber[:2] != expectedPrefix {
+	// 	return fmt.Errorf("account number prefix does not match account type")
+	// }
 
 	return nil
 }

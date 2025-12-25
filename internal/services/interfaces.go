@@ -20,7 +20,7 @@ type AccountAssociationServiceInterface interface {
 
 // AccountServiceInterface defines account-related business operations
 type AccountServiceInterface interface {
-	CreateAccount(userID uuid.UUID, accountType string, initialDeposit decimal.Decimal) (*models.Account, error)
+	CreateAccount(userID uuid.UUID, accountType, accountNumber, routingNumber string, initialDeposit decimal.Decimal) (*models.Account, error)
 	CreateAccountsForNewUser(userID uuid.UUID) error
 	GetAccountByID(accountID uuid.UUID, userID *uuid.UUID) (*models.Account, error)
 	GetAccountByNumber(accountNumber string) (*models.Account, error)
@@ -204,4 +204,8 @@ type TransactionProcessingServiceInterface interface {
 	StartProcessing(ctx context.Context)
 	ProcessQueueItem(ctx context.Context, queueItem *models.ProcessingQueueItem) error
 	GetQueueMetrics() (*dto.QueueMetrics, error)
+}
+
+type NorthWindServiceInterface interface {
+	AuthAccount(ctx context.Context, requestDto dto.NorthWindAccountRequestDto) (*dto.NorthWindAccountValidationResult, error)
 }

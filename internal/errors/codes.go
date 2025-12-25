@@ -5,23 +5,23 @@ type ErrorCode string
 
 // Authentication error codes (AUTH_*)
 const (
-	AuthInvalidCredentials    ErrorCode = "AUTH_001"
-	AuthMissingToken          ErrorCode = "AUTH_002"
-	AuthExpiredToken          ErrorCode = "AUTH_003"
-	AuthInvalidTokenFormat    ErrorCode = "AUTH_004"
+	AuthInvalidCredentials     ErrorCode = "AUTH_001"
+	AuthMissingToken           ErrorCode = "AUTH_002"
+	AuthExpiredToken           ErrorCode = "AUTH_003"
+	AuthInvalidTokenFormat     ErrorCode = "AUTH_004"
 	AuthInsufficientPermission ErrorCode = "AUTH_005"
-	AuthAccountLocked         ErrorCode = "AUTH_006"
+	AuthAccountLocked          ErrorCode = "AUTH_006"
 )
 
 // Validation error codes (VALIDATION_*)
 const (
-	ValidationGeneral        ErrorCode = "VALIDATION_001"
-	ValidationRequiredField  ErrorCode = "VALIDATION_002"
-	ValidationInvalidFormat  ErrorCode = "VALIDATION_003"
-	ValidationOutOfRange     ErrorCode = "VALIDATION_004"
-	ValidationInvalidEmail   ErrorCode = "VALIDATION_005"
-	ValidationInvalidPhone   ErrorCode = "VALIDATION_006"
-	ValidationInvalidDate    ErrorCode = "VALIDATION_007"
+	ValidationGeneral       ErrorCode = "VALIDATION_001"
+	ValidationRequiredField ErrorCode = "VALIDATION_002"
+	ValidationInvalidFormat ErrorCode = "VALIDATION_003"
+	ValidationOutOfRange    ErrorCode = "VALIDATION_004"
+	ValidationInvalidEmail  ErrorCode = "VALIDATION_005"
+	ValidationInvalidPhone  ErrorCode = "VALIDATION_006"
+	ValidationInvalidDate   ErrorCode = "VALIDATION_007"
 )
 
 // Customer error codes (CUSTOMER_*)
@@ -35,52 +35,58 @@ const (
 
 // Account error codes (ACCOUNT_*)
 const (
-	AccountNotFound         ErrorCode = "ACCOUNT_001"
-	AccountInactive         ErrorCode = "ACCOUNT_002"
-	AccountInsufficientBalance ErrorCode = "ACCOUNT_003"
-	AccountInvalidNumber    ErrorCode = "ACCOUNT_004"
+	AccountNotFound              ErrorCode = "ACCOUNT_001"
+	AccountInactive              ErrorCode = "ACCOUNT_002"
+	AccountInsufficientBalance   ErrorCode = "ACCOUNT_003"
+	AccountInvalidNumber         ErrorCode = "ACCOUNT_004"
 	AccountOperationNotPermitted ErrorCode = "ACCOUNT_005"
 )
 
 // Transaction error codes (TRANSACTION_*)
 const (
-	TransactionNotFound       ErrorCode = "TRANSACTION_001"
-	TransactionInvalidAmount  ErrorCode = "TRANSACTION_002"
+	TransactionNotFound          ErrorCode = "TRANSACTION_001"
+	TransactionInvalidAmount     ErrorCode = "TRANSACTION_002"
 	TransactionInsufficientFunds ErrorCode = "TRANSACTION_003"
-	TransactionDuplicate      ErrorCode = "TRANSACTION_004"
-	TransactionValidationFailed ErrorCode = "TRANSACTION_005"
-	TransactionInvalidType    ErrorCode = "TRANSACTION_006"
+	TransactionDuplicate         ErrorCode = "TRANSACTION_004"
+	TransactionValidationFailed  ErrorCode = "TRANSACTION_005"
+	TransactionInvalidType       ErrorCode = "TRANSACTION_006"
 )
 
 // Transfer error codes (TRANSFER_*)
 const (
-	TransferSameAccount        ErrorCode = "TRANSFER_001"
-	TransferPending            ErrorCode = "TRANSFER_002"
-	TransferFailed             ErrorCode = "TRANSFER_003"
-	TransferNotFound           ErrorCode = "TRANSFER_004"
-	TransferInsufficientFunds  ErrorCode = "TRANSFER_005"
-	TransferInvalidAmount      ErrorCode = "TRANSFER_006"
+	TransferSameAccount       ErrorCode = "TRANSFER_001"
+	TransferPending           ErrorCode = "TRANSFER_002"
+	TransferFailed            ErrorCode = "TRANSFER_003"
+	TransferNotFound          ErrorCode = "TRANSFER_004"
+	TransferInsufficientFunds ErrorCode = "TRANSFER_005"
+	TransferInvalidAmount     ErrorCode = "TRANSFER_006"
 )
 
 // System error codes (SYSTEM_*)
 const (
-	SystemInternalError     ErrorCode = "SYSTEM_001"
-	SystemDatabaseError     ErrorCode = "SYSTEM_002"
+	SystemInternalError      ErrorCode = "SYSTEM_001"
+	SystemDatabaseError      ErrorCode = "SYSTEM_002"
 	SystemServiceUnavailable ErrorCode = "SYSTEM_003"
 	SystemConfigurationError ErrorCode = "SYSTEM_004"
-	SystemUnexpectedError   ErrorCode = "SYSTEM_005"
-	SystemRateLimitExceeded ErrorCode = "SYSTEM_006"
+	SystemUnexpectedError    ErrorCode = "SYSTEM_005"
+	SystemRateLimitExceeded  ErrorCode = "SYSTEM_006"
+)
+
+// NorthWind error codes (NORTHWIND_*)
+const (
+	NorthWindAccountNotFound ErrorCode = "NORTHWIND_001"
+	NorthWindAccountError    ErrorCode = "NORTHWIND_002"
 )
 
 // errorMessages maps error codes to their default human-readable messages
 var errorMessages = map[ErrorCode]string{
 	// Authentication errors
-	AuthInvalidCredentials:    "Invalid email or password",
-	AuthMissingToken:          "Authorization token is required",
-	AuthExpiredToken:          "Authorization token has expired",
-	AuthInvalidTokenFormat:    "Invalid authorization token format",
+	AuthInvalidCredentials:     "Invalid email or password",
+	AuthMissingToken:           "Authorization token is required",
+	AuthExpiredToken:           "Authorization token has expired",
+	AuthInvalidTokenFormat:     "Invalid authorization token format",
 	AuthInsufficientPermission: "Insufficient permissions to access this resource",
-	AuthAccountLocked:         "Account is locked or disabled",
+	AuthAccountLocked:          "Account is locked or disabled",
 
 	// Validation errors
 	ValidationGeneral:       "Validation failed",
@@ -99,19 +105,19 @@ var errorMessages = map[ErrorCode]string{
 	CustomerNoResults:     "Customer search returned no results",
 
 	// Account errors
-	AccountNotFound:         "Account not found",
-	AccountInactive:         "Account is closed or inactive",
-	AccountInsufficientBalance: "Insufficient account balance",
-	AccountInvalidNumber:    "Invalid account number or type",
+	AccountNotFound:              "Account not found",
+	AccountInactive:              "Account is closed or inactive",
+	AccountInsufficientBalance:   "Insufficient account balance",
+	AccountInvalidNumber:         "Invalid account number or type",
 	AccountOperationNotPermitted: "Account operation not permitted",
 
 	// Transaction errors
-	TransactionNotFound:       "Transaction not found",
-	TransactionInvalidAmount:  "Invalid transaction amount",
+	TransactionNotFound:          "Transaction not found",
+	TransactionInvalidAmount:     "Invalid transaction amount",
 	TransactionInsufficientFunds: "Insufficient account balance for this transaction",
-	TransactionDuplicate:      "Transaction with this idempotency key already exists",
-	TransactionValidationFailed: "Transaction validation failed",
-	TransactionInvalidType:    "Invalid transaction type",
+	TransactionDuplicate:         "Transaction with this idempotency key already exists",
+	TransactionValidationFailed:  "Transaction validation failed",
+	TransactionInvalidType:       "Invalid transaction type",
 
 	// Transfer errors
 	TransferSameAccount:       "Cannot transfer to the same account",
@@ -122,12 +128,16 @@ var errorMessages = map[ErrorCode]string{
 	TransferInvalidAmount:     "Invalid transfer amount",
 
 	// System errors
-	SystemInternalError:     "An unexpected error occurred. Please contact support with trace ID",
-	SystemDatabaseError:     "Database connection error",
+	SystemInternalError:      "An unexpected error occurred. Please contact support with trace ID",
+	SystemDatabaseError:      "Database connection error",
 	SystemServiceUnavailable: "Service temporarily unavailable",
 	SystemConfigurationError: "System configuration error",
-	SystemUnexpectedError:   "An unexpected error occurred",
-	SystemRateLimitExceeded: "Rate limit exceeded. Please try again later",
+	SystemUnexpectedError:    "An unexpected error occurred",
+	SystemRateLimitExceeded:  "Rate limit exceeded. Please try again later",
+
+	// NorthWind errors
+	NorthWindAccountNotFound: "Account not found",
+	NorthWindAccountError:    "An error occurred while processing your request",
 }
 
 // GetErrorMessage returns the default message for a given error code
