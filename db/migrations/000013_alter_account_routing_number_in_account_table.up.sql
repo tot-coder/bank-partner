@@ -1,0 +1,1 @@
+ALTER TABLE accounts ALTER COLUMN routing_number TYPE VARCHAR(20);

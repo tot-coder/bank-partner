@@ -10,8 +10,10 @@ import (
 
 // CreateAccountRequest represents the request payload for creating a new account
 type CreateAccountRequest struct {
-	AccountType    string `json:"accountType" validate:"required,oneof=checking savings money_market"`
-	InitialDeposit string `json:"initialDeposit,omitempty"`
+	AccountType       string `json:"account_type" validate:"required,oneof=CHECKING SAVINGS MONEY_MARKET"`
+	AccountNumber     string `json:"account_number" validate:"required"`
+	RoutingNumber     string `json:"routing_number" validate:"required"`
+	AccountHolderName string `json:"account_holder_name" validate:"required,min=1,max=100"`
 }
 
 // UpdateAccountStatusRequest represents the request payload for updating account status

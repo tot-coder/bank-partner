@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/shopspring/decimal"
 )
 
 // ErrUnauthorized is returned when user context is invalid
@@ -27,6 +28,48 @@ func getUserIDFromContext(c echo.Context) (uuid.UUID, error) {
 	}
 
 	return userID, nil
+}
+
+func getAvailableBalanceFromContext(c echo.Context) decimal.Decimal {
+	availableBalanceValue := c.Get("initialDeposit")
+	if availableBalanceValue == nil {
+		return decimal.NewFromInt(0)
+	}
+
+	availableBalance, ok := availableBalanceValue.(decimal.Decimal)
+	if !ok {
+		return decimal.NewFromInt(0)
+	}
+
+	return availableBalance
+}
+
+func getAccountNumberFromContext(c echo.Context) string {
+	accountNumberValue := c.Get("accountNumber")
+	if accountNumberValue == nil {
+		return ""
+	}
+
+	accountNumber, ok := accountNumberValue.(string)
+	if !ok {
+		return ""
+	}
+
+	return accountNumber
+}
+
+func getRoutingNumberFromContext(c echo.Context) string {
+	routingNumberValue := c.Get("routingNumber")
+	if routingNumberValue == nil {
+		return ""
+	}
+
+	routingNumber, ok := routingNumberValue.(string)
+	if !ok {
+		return ""
+	}
+
+	return routingNumber
 }
 
 // getIsAdminFromContext extracts the is_admin boolean from context

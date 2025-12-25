@@ -16,10 +16,11 @@ import (
 )
 
 type Config struct {
-	Server   ServerConfig
-	Database DatabaseConfig
-	JWT      JWTConfig
-	Security SecurityConfig
+	Server    ServerConfig
+	Database  DatabaseConfig
+	JWT       JWTConfig
+	Security  SecurityConfig
+	NorthWind NorthWindConfig
 }
 
 type ServerConfig struct {
@@ -62,6 +63,12 @@ type SecurityConfig struct {
 	RequireSpecialChars bool
 }
 
+type NorthWindConfig struct {
+	BaseUrl string
+	ApiKey  string
+	Timeout time.Duration
+}
+
 func Load() *Config {
 	config := &Config{
 		Server: ServerConfig{
@@ -96,6 +103,11 @@ func Load() *Config {
 			AccessTokenDuration:  getDurationEnv("JWT_ACCESS_TOKEN_DURATION", 24*time.Hour),
 			RefreshTokenDuration: getDurationEnv("JWT_REFRESH_TOKEN_DURATION", 7*24*time.Hour),
 			Issuer:               getEnv("JWT_ISSUER", "banking-api"),
+		},
+		NorthWind: NorthWindConfig{
+			BaseUrl: getEnv("NORTHWIND_BASE_URL", "https://northwind.dev.array.io/"),
+			ApiKey:  getEnv("NORTHWIND_API_KEY", ""),
+			Timeout: getDurationEnv("NORTHWIND_TIMEOUT", 30*time.Second),
 		},
 	}
 

@@ -84,29 +84,32 @@ func (s *AccountHandlerSuite) createContextWithAuth(method, path string, body in
 func (s *AccountHandlerSuite) TestCreateAccount_WithInitialDeposit() {
 	accountID := uuid.New()
 	reqBody := dto.CreateAccountRequest{
-		AccountType:    "checking",
-		InitialDeposit: "100.00",
+		AccountType:       "CHECKING",
+		AccountNumber:     "1012345678",
+		RoutingNumber:     "123456789",
+		AccountHolderName: "John Doe",
 	}
 
 	expectedAccount := &models.Account{
 		ID:            accountID,
 		UserID:        s.testUserID,
 		AccountNumber: "1012345678",
-		AccountType:   "checking",
+		AccountType:   "CHECKING",
 		Balance:       decimal.NewFromFloat(100.00),
 		Status:        "active",
 	}
 
 	s.mockService.EXPECT().
-		CreateAccount(s.testUserID, "checking", gomock.Any()).
-		DoAndReturn(func(_ uuid.UUID, _ string, amount decimal.Decimal) (*models.Account, error) {
-			if !amount.Equal(decimal.NewFromFloat(100.00)) {
-				s.T().Errorf("expected amount 100.00, got %s", amount.String())
+		CreateAccount(s.testUserID, "CHECKING", gomock.Any(), gomock.Any(), gomock.Any()).
+		DoAndReturn(func(userID uuid.UUID, accountType, accountNumber, routingNumber string, initialDeposit decimal.Decimal) (*models.Account, error) {
+			if !initialDeposit.Equal(decimal.NewFromFloat(100.00)) {
+				s.T().Errorf("expected amount 100.00, got %s", initialDeposit.String())
 			}
 			return expectedAccount, nil
 		})
 
 	c, rec := s.createContextWithAuth("POST", "/accounts", reqBody, s.testUserID, "user")
+	c.Set("initialDeposit", decimal.NewFromFloat(100.00))
 
 	err := s.handler.CreateAccount(c)
 	s.NoError(err)
@@ -137,11 +140,14 @@ func (s *AccountHandlerSuite) TestCreateAccount_InvalidAmount() {
 
 func (s *AccountHandlerSuite) TestCreateAccount_AccountAlreadyExists() {
 	reqBody := dto.CreateAccountRequest{
-		AccountType: "checking",
+		AccountType:       "CHECKING",
+		AccountNumber:     "1012345678",
+		RoutingNumber:     "123456789",
+		AccountHolderName: "John Doe",
 	}
 
 	s.mockService.EXPECT().
-		CreateAccount(s.testUserID, "checking", decimal.Zero).
+		CreateAccount(s.testUserID, "CHECKING", gomock.Any(), gomock.Any(), gomock.Any()).
 		Return(nil, services.ErrAccountAlreadyExists)
 
 	c, rec := s.createContextWithAuth("POST", "/accounts", reqBody, s.testUserID, "user")
