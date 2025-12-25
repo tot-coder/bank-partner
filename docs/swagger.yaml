@@ -1,44 +1,35 @@
 components:
   schemas:
-    data:
+    array-assessment_internal_dto.CreateAccountRequest:
       properties:
-        data:
-          properties:
-            created_at:
-              type: string
-            email:
-              type: string
-            first_name:
-              type: string
-            id:
-              type: string
-            last_name:
-              type: string
-            role:
-              type: string
-          type: object
-      type: object
-    github_com_array_banking-api_internal_dto.CreateAccountRequest:
-      properties:
-        accountType:
+        account_holder_name:
+          maxLength: 100
+          minLength: 1
+          type: string
+        account_number:
+          type: string
+        account_type:
           enum:
           - checking
           - savings
           - money_market
           type: string
-        initialDeposit:
+        routing_number:
           type: string
       required:
-      - accountType
+      - account_holder_name
+      - account_number
+      - account_type
+      - routing_number
       type: object
-    github_com_array_banking-api_internal_dto.CreateAccountResponse:
+    array-assessment_internal_dto.CreateAccountResponse:
       properties:
         account:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+          $ref: '#/components/schemas/array-assessment_internal_models.Account'
         message:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.CreateCustomerRequest:
+    array-assessment_internal_dto.CreateCustomerRequest:
       properties:
         address:
           maxLength: 500
@@ -85,16 +76,16 @@ components:
       - lastName
       - ssn
       type: object
-    github_com_array_banking-api_internal_dto.CreateCustomerResponse:
+    array-assessment_internal_dto.CreateCustomerResponse:
       properties:
         customer:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_models.User'
+          $ref: '#/components/schemas/array-assessment_internal_models.User'
         message:
           type: string
         temporaryPassword:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.CustomerSearchResult:
+    array-assessment_internal_dto.CustomerSearchResult:
       properties:
         accountCount:
           type: integer
@@ -113,27 +104,27 @@ components:
         status:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.DeleteCustomerResponse:
+    array-assessment_internal_dto.DeleteCustomerResponse:
       properties:
         message:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.GetCustomerProfileResponse:
+    array-assessment_internal_dto.GetCustomerProfileResponse:
       properties:
         customer:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_models.User'
+          $ref: '#/components/schemas/array-assessment_internal_models.User'
       type: object
-    github_com_array_banking-api_internal_dto.ListTransactionsResponse:
+    array-assessment_internal_dto.ListTransactionsResponse:
       properties:
         pagination:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.PaginationInfo'
+          $ref: '#/components/schemas/array-assessment_internal_dto.PaginationInfo'
         transactions:
           items:
-            $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TransactionWithBalance'
+            $ref: '#/components/schemas/array-assessment_internal_dto.TransactionWithBalance'
           type: array
           uniqueItems: false
       type: object
-    github_com_array_banking-api_internal_dto.LoginRequest:
+    array-assessment_internal_dto.LoginRequest:
       properties:
         email:
           type: string
@@ -143,7 +134,7 @@ components:
       - email
       - password
       type: object
-    github_com_array_banking-api_internal_dto.PaginationInfo:
+    array-assessment_internal_dto.PaginationInfo:
       properties:
         hasMore:
           type: boolean
@@ -154,7 +145,7 @@ components:
         total:
           type: integer
       type: object
-    github_com_array_banking-api_internal_dto.PaginationMeta:
+    array-assessment_internal_dto.PaginationMeta:
       properties:
         limit:
           type: integer
@@ -163,7 +154,7 @@ components:
         total:
           type: integer
       type: object
-    github_com_array_banking-api_internal_dto.RegisterRequest:
+    array-assessment_internal_dto.RegisterRequest:
       properties:
         email:
           type: string
@@ -184,11 +175,11 @@ components:
       - lastName
       - password
       type: object
-    github_com_array_banking-api_internal_dto.SearchCustomersResponse:
+    array-assessment_internal_dto.SearchCustomersResponse:
       properties:
         customers:
           items:
-            $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.CustomerSearchResult'
+            $ref: '#/components/schemas/array-assessment_internal_dto.CustomerSearchResult'
           type: array
           uniqueItems: false
         limit:
@@ -200,7 +191,7 @@ components:
         total_pages:
           type: integer
       type: object
-    github_com_array_banking-api_internal_dto.TokenResponse:
+    array-assessment_internal_dto.TokenResponse:
       properties:
         accessToken:
           type: string
@@ -211,7 +202,7 @@ components:
         tokenType:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.TransactionRequest:
+    array-assessment_internal_dto.TransactionRequest:
       properties:
         amount:
           type: string
@@ -229,7 +220,7 @@ components:
       - description
       - type
       type: object
-    github_com_array_banking-api_internal_dto.TransactionWithBalance:
+    array-assessment_internal_dto.TransactionWithBalance:
       properties:
         accountId:
           type: string
@@ -258,17 +249,17 @@ components:
         transactionType:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.TransferHistoryResponse:
+    array-assessment_internal_dto.TransferHistoryResponse:
       properties:
         pagination:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.PaginationMeta'
+          $ref: '#/components/schemas/array-assessment_internal_dto.PaginationMeta'
         transfers:
           items:
-            $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Transfer'
+            $ref: '#/components/schemas/array-assessment_internal_models.Transfer'
           type: array
           uniqueItems: false
       type: object
-    github_com_array_banking-api_internal_dto.TransferRequest:
+    array-assessment_internal_dto.TransferRequest:
       properties:
         amount:
           type: string
@@ -283,7 +274,7 @@ components:
       - description
       - toAccountId
       type: object
-    github_com_array_banking-api_internal_dto.TransferResponse:
+    array-assessment_internal_dto.TransferResponse:
       properties:
         amount:
           type: string
@@ -300,7 +291,7 @@ components:
         transferId:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.UpdateAccountStatusRequest:
+    array-assessment_internal_dto.UpdateAccountStatusRequest:
       properties:
         status:
           enum:
@@ -312,19 +303,19 @@ components:
       required:
       - status
       type: object
-    github_com_array_banking-api_internal_dto.UpdateCustomerEmailRequest:
+    array-assessment_internal_dto.UpdateCustomerEmailRequest:
       properties:
         newEmail:
           type: string
       required:
       - newEmail
       type: object
-    github_com_array_banking-api_internal_dto.UpdateCustomerEmailResponse:
+    array-assessment_internal_dto.UpdateCustomerEmailResponse:
       properties:
         message:
           type: string
       type: object
-    github_com_array_banking-api_internal_dto.UpdateCustomerProfileRequest:
+    array-assessment_internal_dto.UpdateCustomerProfileRequest:
       properties:
         address:
           maxLength: 500
@@ -347,7 +338,7 @@ components:
         zipCode:
           type: string
       type: object
-    github_com_array_banking-api_internal_errors.ErrorDetail:
+    array-assessment_internal_errors.ErrorDetail:
       properties:
         code:
           type: string
@@ -361,12 +352,12 @@ components:
         trace_id:
           type: string
       type: object
-    github_com_array_banking-api_internal_errors.ErrorResponse:
+    array-assessment_internal_errors.ErrorResponse:
       properties:
         error:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorDetail'
+          $ref: '#/components/schemas/array-assessment_internal_errors.ErrorDetail'
       type: object
-    github_com_array_banking-api_internal_models.Account:
+    array-assessment_internal_models.Account:
       properties:
         account_number:
           type: string
@@ -393,7 +384,7 @@ components:
         user_id:
           type: string
       type: object
-    github_com_array_banking-api_internal_models.AuditLog:
+    array-assessment_internal_models.AuditLog:
       properties:
         action:
           type: string
@@ -404,7 +395,7 @@ components:
         ip_address:
           type: string
         metadata:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_models.JSONBMap'
+          $ref: '#/components/schemas/array-assessment_internal_models.JSONBMap'
         resource:
           type: string
         resource_id:
@@ -414,11 +405,11 @@ components:
         user_id:
           type: string
       type: object
-    github_com_array_banking-api_internal_models.JSONBMap:
+    array-assessment_internal_models.JSONBMap:
       additionalProperties: {}
       description: Map of string keys to arbitrary values
       type: object
-    github_com_array_banking-api_internal_models.Transaction:
+    array-assessment_internal_models.Transaction:
       properties:
         account_id:
           type: string
@@ -441,7 +432,7 @@ components:
         merchant_name:
           type: string
         metadata:
-          $ref: '#/components/schemas/github_com_array_banking-api_internal_models.JSONBMap'
+          $ref: '#/components/schemas/array-assessment_internal_models.JSONBMap'
         pending_until:
           type: string
         processed_at:
@@ -463,7 +454,7 @@ components:
         version:
           type: integer
       type: object
-    github_com_array_banking-api_internal_models.Transfer:
+    array-assessment_internal_models.Transfer:
       properties:
         amount:
           type: number
@@ -494,7 +485,7 @@ components:
         updated_at:
           type: string
       type: object
-    github_com_array_banking-api_internal_models.User:
+    array-assessment_internal_models.User:
       properties:
         created_at:
           type: string
@@ -516,6 +507,24 @@ components:
           type: string
         updated_at:
           type: string
+      type: object
+    data:
+      properties:
+        data:
+          properties:
+            created_at:
+              type: string
+            email:
+              type: string
+            first_name:
+              type: string
+            id:
+              type: string
+            last_name:
+              type: string
+            role:
+              type: string
+          type: object
       type: object
     gorm.DeletedAt:
       properties:
@@ -567,20 +576,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                  $ref: '#/components/schemas/array-assessment_internal_models.Account'
                 type: array
           description: List of user's accounts
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -594,7 +603,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.CreateAccountRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.CreateAccountRequest'
         description: Account creation details
         required: true
       responses:
@@ -602,31 +611,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.CreateAccountResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.CreateAccountResponse'
           description: Account created successfully
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request body or validation error
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: TRANSACTION_002 - Invalid initial deposit amount
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -664,37 +673,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_003 - Invalid account ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Account belongs to another user
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_005 - Account has non-zero balance
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -716,37 +725,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                $ref: '#/components/schemas/array-assessment_internal_models.Account'
           description: Account details
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_003 - Invalid account ID format
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Account belongs to another user
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -767,7 +776,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.UpdateAccountStatusRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.UpdateAccountStatusRequest'
         description: New account status
         required: true
       responses:
@@ -775,37 +784,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                $ref: '#/components/schemas/array-assessment_internal_models.Account'
           description: Updated account details
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request body or account ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Account belongs to another user
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -887,38 +896,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.ListTransactionsResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.ListTransactionsResponse'
           description: Transaction history with pagination
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid parameters or VALIDATION_003 - Invalid
             account ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Account belongs to another user
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -938,7 +947,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TransactionRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.TransactionRequest'
         description: Transaction details
         required: true
       responses:
@@ -946,44 +955,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Transaction'
+                $ref: '#/components/schemas/array-assessment_internal_models.Transaction'
           description: Transaction created successfully
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request body or account ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Account belongs to another user
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: TRANSACTION_002 - Invalid transaction amount, TRANSACTION_003
             - Insufficient funds, ACCOUNT_002 - Account not active
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1012,38 +1021,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TransactionWithBalance'
+                $ref: '#/components/schemas/array-assessment_internal_dto.TransactionWithBalance'
           description: Transaction details with running balance
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid transaction or account ID format
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Transaction belongs to another user's account
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found or TRANSACTION_001 - Transaction
             not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1071,7 +1080,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TransferRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.TransferRequest'
         description: Transfer details
         required: true
       responses:
@@ -1079,51 +1088,51 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TransferResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.TransferResponse'
           description: Transfer completed successfully
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request body, VALIDATION_002 - Missing
             Idempotency-Key header
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Account belongs to another user
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Duplicate idempotency key with pending or failed transfer
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: TRANSACTION_002 - Invalid amount, TRANSACTION_003 - Insufficient
             funds, ACCOUNT_002 - Account not active
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1173,33 +1182,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_004 - Invalid account ID or VALIDATION_001 - Invalid
             request body
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found or CUSTOMER_001 - Customer
             not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1254,7 +1263,7 @@ paths:
                 properties:
                   accounts:
                     items:
-                      $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                      $ref: '#/components/schemas/array-assessment_internal_models.Account'
                     type: array
                   limit:
                     type: integer
@@ -1268,13 +1277,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1297,31 +1306,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                $ref: '#/components/schemas/array-assessment_internal_models.Account'
           description: Account details
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_003 - Invalid account ID format
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_001 - Account not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1355,25 +1364,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid pagination parameters
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1401,31 +1410,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid user ID or cannot delete own account
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - User not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1452,31 +1461,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid user ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - User not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1499,26 +1508,26 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                  $ref: '#/components/schemas/array-assessment_internal_models.Account'
                 type: array
           description: List of user's accounts
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_003 - Invalid user ID format
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1546,31 +1555,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid user ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - User not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1585,7 +1594,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.LoginRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.LoginRequest'
         description: Login credentials
         required: true
       responses:
@@ -1593,31 +1602,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TokenResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.TokenResponse'
           description: Login successful with JWT tokens
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Validation error - AUTH_001
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Invalid credentials - AUTH_002
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Account locked - AUTH_006
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: System error - SYSTEM_001 or SYSTEM_002
       summary: Login user
       tags:
@@ -1646,13 +1655,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Unauthorized - AUTH_004 or AUTH_005
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: System error - SYSTEM_001
       security:
       - BearerAuth: []
@@ -1678,25 +1687,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TokenResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.TokenResponse'
           description: Token refreshed successfully
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Validation error - AUTH_001
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Invalid refresh token - AUTH_003
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: System error - SYSTEM_001 or SYSTEM_002
       summary: Refresh access token
       tags:
@@ -1708,7 +1717,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.RegisterRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.RegisterRequest'
         description: Registration details
         required: true
       responses:
@@ -1731,19 +1740,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Validation error - AUTH_001 (Invalid request body)
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: Customer already exists - CUSTOMER_001
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: System error - SYSTEM_001 or SYSTEM_002
       summary: Register a new user
       tags:
@@ -1756,7 +1765,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.CreateCustomerRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.CreateCustomerRequest'
         description: Customer details
         required: true
       responses:
@@ -1764,37 +1773,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.CreateCustomerResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.CreateCustomerResponse'
           description: Customer created successfully with temporary password
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request body
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_002 - Email already exists
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1817,43 +1826,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.DeleteCustomerResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.DeleteCustomerResponse'
           description: Customer deleted successfully
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_004 - Invalid customer ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: ACCOUNT_005 - Customer has non-zero balances
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1875,37 +1884,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.GetCustomerProfileResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.GetCustomerProfileResponse'
           description: Customer profile
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_004 - Invalid customer ID format
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1925,7 +1934,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.UpdateCustomerProfileRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.UpdateCustomerProfileRequest'
         description: Profile updates
         required: true
       responses:
@@ -1948,32 +1957,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_004 - Invalid customer ID or VALIDATION_001 - Invalid
             request body
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -1998,7 +2007,7 @@ paths:
                 properties:
                   accounts:
                     items:
-                      $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                      $ref: '#/components/schemas/array-assessment_internal_models.Account'
                     type: array
                   count:
                     type: integer
@@ -2008,31 +2017,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_004 - Invalid customer ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2065,7 +2074,7 @@ paths:
               schema:
                 properties:
                   account:
-                    $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                    $ref: '#/components/schemas/array-assessment_internal_models.Account'
                   message:
                     type: string
                 type: object
@@ -2074,32 +2083,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_004 - Invalid customer ID or VALIDATION_001 - Invalid
             request body
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2136,7 +2145,7 @@ paths:
                 properties:
                   activities:
                     items:
-                      $ref: '#/components/schemas/github_com_array_banking-api_internal_models.AuditLog'
+                      $ref: '#/components/schemas/array-assessment_internal_models.AuditLog'
                     type: array
                   limit:
                     type: integer
@@ -2150,25 +2159,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_004 - Invalid customer ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2202,31 +2211,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_004 - Invalid customer ID
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2241,25 +2250,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.GetCustomerProfileResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.GetCustomerProfileResponse'
           description: Customer profile
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2277,7 +2286,7 @@ paths:
                 properties:
                   accounts:
                     items:
-                      $ref: '#/components/schemas/github_com_array_banking-api_internal_models.Account'
+                      $ref: '#/components/schemas/array-assessment_internal_models.Account'
                     type: array
                   count:
                     type: integer
@@ -2287,19 +2296,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2330,7 +2339,7 @@ paths:
                 properties:
                   activities:
                     items:
-                      $ref: '#/components/schemas/github_com_array_banking-api_internal_models.AuditLog'
+                      $ref: '#/components/schemas/array-assessment_internal_models.AuditLog'
                     type: array
                   limit:
                     type: integer
@@ -2344,13 +2353,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2364,7 +2373,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.UpdateCustomerEmailRequest'
+              $ref: '#/components/schemas/array-assessment_internal_dto.UpdateCustomerEmailRequest'
         description: New email address
         required: true
       responses:
@@ -2372,38 +2381,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.UpdateCustomerEmailResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.UpdateCustomerEmailResponse'
           description: Email updated successfully
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request body or VALIDATION_005 - Invalid
             email format
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_001 - Customer not found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: CUSTOMER_002 - Email already exists
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2446,20 +2455,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request body
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_001 - Current password is incorrect or AUTH_002 - Missing
             authentication
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2497,19 +2506,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.TransferHistoryResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.TransferHistoryResponse'
           description: Transfer history with pagination
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2561,31 +2570,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_dto.SearchCustomersResponse'
+                $ref: '#/components/schemas/array-assessment_internal_dto.SearchCustomersResponse'
           description: Customer search results
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: VALIDATION_001 - Invalid request parameters
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_002 - Missing or invalid authentication
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: AUTH_005 - Requires admin role
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_001 - Internal server error
       security:
       - BearerAuth: []
@@ -2627,8 +2636,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_array_banking-api_internal_errors.ErrorResponse'
+                $ref: '#/components/schemas/array-assessment_internal_errors.ErrorResponse'
           description: SYSTEM_003 - Service unavailable (database connection failed)
       summary: Health check
       tags:
       - Health
+servers:
+- url: /api/v1

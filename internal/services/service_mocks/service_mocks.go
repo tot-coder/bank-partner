@@ -5,12 +5,11 @@
 package service_mocks
 
 import (
+	dto "array-assessment/internal/dto"
+	models "array-assessment/internal/models"
 	context "context"
 	reflect "reflect"
 	time "time"
-
-	dto "array-assessment/internal/dto"
-	models "array-assessment/internal/models"
 
 	gomock "github.com/golang/mock/gomock"
 	uuid "github.com/google/uuid"
@@ -122,18 +121,18 @@ func (mr *MockAccountServiceInterfaceMockRecorder) CloseAccount(accountID, userI
 }
 
 // CreateAccount mocks base method.
-func (m *MockAccountServiceInterface) CreateAccount(userID uuid.UUID, accountType string, initialDeposit decimal.Decimal) (*models.Account, error) {
+func (m *MockAccountServiceInterface) CreateAccount(userID uuid.UUID, accountType, accountNumber, routingNumber string, initialDeposit decimal.Decimal) (*models.Account, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateAccount", userID, accountType, initialDeposit)
+	ret := m.ctrl.Call(m, "CreateAccount", userID, accountType, accountNumber, routingNumber, initialDeposit)
 	ret0, _ := ret[0].(*models.Account)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // CreateAccount indicates an expected call of CreateAccount.
-func (mr *MockAccountServiceInterfaceMockRecorder) CreateAccount(userID, accountType, initialDeposit interface{}) *gomock.Call {
+func (mr *MockAccountServiceInterfaceMockRecorder) CreateAccount(userID, accountType, accountNumber, routingNumber, initialDeposit interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAccount", reflect.TypeOf((*MockAccountServiceInterface)(nil).CreateAccount), userID, accountType, initialDeposit)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAccount", reflect.TypeOf((*MockAccountServiceInterface)(nil).CreateAccount), userID, accountType, accountNumber, routingNumber, initialDeposit)
 }
 
 // CreateAccountsForNewUser mocks base method.
@@ -2020,4 +2019,42 @@ func (m *MockTransactionProcessingServiceInterface) StartProcessing(ctx context.
 func (mr *MockTransactionProcessingServiceInterfaceMockRecorder) StartProcessing(ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StartProcessing", reflect.TypeOf((*MockTransactionProcessingServiceInterface)(nil).StartProcessing), ctx)
+}
+
+// MockNorthWindServiceInterface is a mock of NorthWindServiceInterface interface.
+type MockNorthWindServiceInterface struct {
+	ctrl     *gomock.Controller
+	recorder *MockNorthWindServiceInterfaceMockRecorder
+}
+
+// MockNorthWindServiceInterfaceMockRecorder is the mock recorder for MockNorthWindServiceInterface.
+type MockNorthWindServiceInterfaceMockRecorder struct {
+	mock *MockNorthWindServiceInterface
+}
+
+// NewMockNorthWindServiceInterface creates a new mock instance.
+func NewMockNorthWindServiceInterface(ctrl *gomock.Controller) *MockNorthWindServiceInterface {
+	mock := &MockNorthWindServiceInterface{ctrl: ctrl}
+	mock.recorder = &MockNorthWindServiceInterfaceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockNorthWindServiceInterface) EXPECT() *MockNorthWindServiceInterfaceMockRecorder {
+	return m.recorder
+}
+
+// AuthAccount mocks base method.
+func (m *MockNorthWindServiceInterface) AuthAccount(ctx context.Context, requestDto dto.NorthWindAccountRequestDto) (*dto.NorthWindAccountValidationResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AuthAccount", ctx, requestDto)
+	ret0, _ := ret[0].(*dto.NorthWindAccountValidationResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AuthAccount indicates an expected call of AuthAccount.
+func (mr *MockNorthWindServiceInterfaceMockRecorder) AuthAccount(ctx, requestDto interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AuthAccount", reflect.TypeOf((*MockNorthWindServiceInterface)(nil).AuthAccount), ctx, requestDto)
 }

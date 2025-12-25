@@ -57,7 +57,7 @@ func NewAccountService(
 }
 
 // CreateAccount creates a new account for a user
-func (s *accountService) CreateAccount(userID uuid.UUID, accountType string, initialDeposit decimal.Decimal) (*models.Account, error) {
+func (s *accountService) CreateAccount(userID uuid.UUID, accountType, accountNumber, routingNumber string, initialDeposit decimal.Decimal) (*models.Account, error) {
 	user, err := s.userRepo.GetByID(userID)
 	if err != nil {
 		if errors.Is(err, repositories.ErrUserNotFound) {
@@ -79,7 +79,6 @@ func (s *accountService) CreateAccount(userID uuid.UUID, accountType string, ini
 		return nil, ErrInvalidAmount
 	}
 
-	accountNumber, err := s.accountRepo.GenerateUniqueAccountNumber(accountType)
 	if err != nil {
 		return nil, fmt.Errorf("failed to generate account number: %w", err)
 	}
@@ -90,24 +89,30 @@ func (s *accountService) CreateAccount(userID uuid.UUID, accountType string, ini
 		AccountType:   accountType,
 		Balance:       initialDeposit,
 		Status:        models.AccountStatusActive,
+		RoutingNumber: routingNumber,
 		Currency:      "USD",
 	}
 
-	var transactions []models.Transaction
-	if initialDeposit.GreaterThan(decimal.Zero) {
-		transaction := models.Transaction{
-			TransactionType: models.TransactionTypeCredit,
-			Amount:          initialDeposit,
-			BalanceBefore:   decimal.Zero,
-			BalanceAfter:    initialDeposit,
-			Description:     "Initial Deposit",
-			Status:          models.TransactionStatusCompleted,
-			Reference:       models.GenerateTransactionReference(),
-		}
-		transactions = append(transactions, transaction)
-	}
+	// var transactions []models.Transaction
+	// if initialDeposit.GreaterThan(decimal.Zero) {
+	// 	transaction := models.Transaction{
+	// 		TransactionType: models.TransactionTypeCredit,
+	// 		Amount:          initialDeposit,
+	// 		BalanceBefore:   decimal.Zero,
+	// 		BalanceAfter:    initialDeposit,
+	// 		Description:     "Initial Deposit",
+	// 		Status:          models.TransactionStatusCompleted,
+	// 		Reference:       models.GenerateTransactionReference(),
+	// 	}
+	// 	transactions = append(transactions, transaction)
+	// }
 
-	if err := s.accountRepo.CreateWithTransaction(account, transactions); err != nil {
+	// if err := s.accountRepo.CreateWithTransaction(account, transactions); err != nil {
+	// 	return nil, fmt.Errorf("failed to create account: %w", err)
+	// }
+
+	if err := s.accountRepo.Create(account); err != nil {
+		s.logger.Error("EEEEEEEEEEEEEEEEEEEEEEEEEE", err)
 		return nil, fmt.Errorf("failed to create account: %w", err)
 	}
 
@@ -121,6 +126,7 @@ func (s *accountService) CreateAccount(userID uuid.UUID, accountType string, ini
 		Metadata: models.JSONBMap{
 			"account_type":   accountType,
 			"account_number": account.AccountNumber,
+			"routing_number": account.RoutingNumber,
 		},
 	}); err != nil {
 		s.logger.Error("failed to create audit log", "error", err, "action", "account.created")

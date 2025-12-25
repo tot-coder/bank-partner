@@ -1,4 +1,4 @@
-.PHONY: help build run test clean docs swagger postman install-tools
+.PHONY: help build run test clean docs swagger postman install-tools mocks
 
 # Default target
 help:
@@ -15,6 +15,7 @@ help:
 	@echo "  make lint          - Run golangci-lint"
 	@echo "  make migrate-up    - Run database migrations"
 	@echo "  make migrate-down  - Rollback database migrations"
+	@echo "  make mocks         - Generate service mocks"
 
 # Install development tools
 install-tools:
@@ -22,6 +23,12 @@ install-tools:
 	go install github.com/swaggo/swag/v2/cmd/swag@latest
 	go install github.com/golang/mock/mockgen@latest
 	@echo "Tools installed successfully"
+
+# Generate service mocks
+mocks:
+	@echo "Generating service mocks..."
+	go generate ./internal/services/service_mocks/generate.go
+	@echo "Mocks generated successfully"
 
 # Generate OpenAPI documentation
 docs: swagger
@@ -90,8 +97,33 @@ clean:
 # Database migrations (requires GOOSE or similar)
 migrate-up:
 	@echo "Running database migrations..."
-	# Add your migration command here
+	@if [ -f .env ]; then \
+		export $$(grep -E '^DB_' .env | xargs); \
+		migrate -path db/migrations -database "postgres://$$DB_USER:$$DB_PASSWORD@$$DB_HOST:$$DB_PORT/$$DB_NAME?sslmode=$$DB_SSLMODE" up; \
+	else \
+		echo "Error: .env file not found. Please create .env file with database configuration."; \
+		exit 1; \
+	fi
 
 migrate-down:
 	@echo "Rolling back database migrations..."
-	# Add your migration rollback command here
+	@if [ -f .env ]; then \
+		export $$(grep -E '^DB_' .env | xargs); \
+		migrate -path db/migrations -database "postgres://$$DB_USER:$$DB_PASSWORD@$$DB_HOST:$$DB_PORT/$$DB_NAME?sslmode=$$DB_SSLMODE" down 1; \
+	else \
+		echo "Error: .env file not found. Please create .env file with database configuration."; \
+		exit 1; \
+	fi
+
+seed:
+	@echo "Seeding database with initial data..."
+	@if [ -f .env ]; then \
+		export $$(grep -E '^DB_' .env | xargs); \
+		for file in db/seeds/*.sql; do \
+			echo "Running seed file: $$file"; \
+			PGPASSWORD=$$DB_PASSWORD psql -h $$DB_HOST -p $$DB_PORT -U $$DB_USER -d $$DB_NAME -f $$file; \
+		done; \
+	else \
+		echo "Error: .env file not found. Please create .env file with database configuration."; \
+		exit 1; \
+	fi
